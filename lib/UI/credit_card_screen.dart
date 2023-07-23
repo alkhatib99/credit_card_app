@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 class CreditCardFormScreen extends StatelessWidget {
   final CreditCardFormController _controller =
       Get.put(CreditCardFormController());
-
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,7 +63,8 @@ class CreditCardFormScreen extends StatelessWidget {
                                 "Card Level",
                                 "Classic",
                                 "Gold",
-                                "Silver",
+                                "infinite",
+                                "signature",
                                 "Platinum"
                               ], // Replace with your own list of items
                               value: _controller.selectedItem.value,
@@ -85,64 +86,7 @@ class CreditCardFormScreen extends StatelessWidget {
                 ),
               ),
             ])
-            //   Container(
-            //     // width: 250,
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.start,
-            //       crossAxisAlignment: CrossAxisAlignment.start,
-            //       children: [
-            //         Expanded(
-            //           child: Container(
-            //             width: 400,
-            //             height: 400,
-            //             decoration: BoxDecoration(
-            //               image: DecorationImage(
-            //                 image: AssetImage('assets/images/background.png'),
-            //                 fit: BoxFit.cover,
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         SizedBox(
-            //           width: 50,
-            //         ),
-            //         Expanded(
-            //           child: Container(
-            //             margin: EdgeInsets.all(50),
-            //             width: 500,
-            //             child: Column(
-            //               crossAxisAlignment: CrossAxisAlignment.stretch,
-            //               children: [
-            //                 TextFormField(
-            //                   controller: _controller.cardNumberController,
-            //                   keyboardType: TextInputType.number,
-            //                   decoration: InputDecoration(labelText: 'Card Number'),
-            //                 ),
-            //                 SizedBox(height: 16),
-            //                 TextFormField(
-            //                   controller: _controller.expirationDateController,
-            //                   keyboardType: TextInputType.datetime,
-            //                   decoration: InputDecoration(labelText: 'Expiration Date'),
-            //                 ),
-            //                 SizedBox(height: 16),
-            //                 TextFormField(
-            //                   controller: _controller.cvvController,
-            //                   keyboardType: TextInputType.number,
-            //                   decoration: InputDecoration(labelText: 'CVV'),
-            //                 ),
-            //                 SizedBox(height: 16),
-            //                 ElevatedButton(
-            //                   onPressed: _controller.submitForm,
-            //                   child: Text('Submit'),
-            //                 ),
-            //               ],
-            //             ),
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ],
+         
             ),
       ),
     );
