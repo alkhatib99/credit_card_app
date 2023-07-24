@@ -34,7 +34,6 @@ dependencies:
   http: ^1.1.0
   fluttertoast: ^8.2.2
   get: ^4.6.5
-  cloud_firestore: ^4.8.3
   # telegram_bot: ^1.0.0  # Replace with the latest version
 
 
